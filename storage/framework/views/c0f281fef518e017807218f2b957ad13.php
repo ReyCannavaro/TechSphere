@@ -252,47 +252,47 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-        <li><b><a href="{{ route('homepage') }}">Home</a></b></li>
-        <li><b><a href="{{ route('login') }}">Gadgets</a></b></li>
-        <li><b><a href="{{ route('login') }}">About</a></b></li>
+        <li><b><a href="<?php echo e(route('homepage')); ?>">Home</a></b></li>
+        <li><b><a href="<?php echo e(route('login')); ?>">Gadgets</a></b></li>
+        <li><b><a href="<?php echo e(route('login')); ?>">About</a></b></li>
     </ul>
 
     <!-- Search & Profile -->
     <div class="nav-icons">
-        <form action="{{ route('login') }}" method="GET">
+        <form action="<?php echo e(route('login')); ?>" method="GET">
             <input type="text" name="query" class="search-bar" placeholder="Search something..">
         </form>
 
         <!-- Profile Icon -->
-        <a href="{{ route('login') }}">
-            <img src="{{ asset('pict/Account.png') }}" alt="Profile" style="height: 24px;">
+        <a href="<?php echo e(route('login')); ?>">
+            <img src="<?php echo e(asset('pict/Account.png')); ?>" alt="Profile" style="height: 24px;">
         </a>
     </div>
 </nav>
 
 
-    @foreach($gadgets as $gadget)
+    <?php $__currentLoopData = $gadgets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gadget): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="main-product">
             <div class="product-image">
-                <img src="{{ asset('pict/' . $gadget->image) }}" alt="{{ $gadget->name }}">
+                <img src="<?php echo e(asset('pict/' . $gadget->image)); ?>" alt="<?php echo e($gadget->name); ?>">
             </div>
-            <div class="product-name">{{ $gadget->name }}</div>
-            <a href="{{ route('pralogin') }}" class="detail-link">Lihat Detail</a>
+            <div class="product-name"><?php echo e($gadget->name); ?></div>
+            <a href="<?php echo e(route('pralogin')); ?>" class="detail-link">Lihat Detail</a>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     <!-- Bagian Rekomendasi Produk -->
     <section class="rekomendasi">
         <h2>Rekomendasi</h2>
         <div class="produk-container">
-            @foreach($recommendedGadgets as $gadget)
+            <?php $__currentLoopData = $recommendedGadgets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gadget): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="produk">
                     <div class="produk-box">
-                        <img src="{{ asset('pict/' . $gadget->image) }}" alt="{{ $gadget->name }}">
+                        <img src="<?php echo e(asset('pict/' . $gadget->image)); ?>" alt="<?php echo e($gadget->name); ?>">
                     </div>
-                    <a href="{{ route('pralogin') }}" class="lihat-detail">Lihat Detail</a>
+                    <a href="<?php echo e(route('pralogin')); ?>" class="lihat-detail">Lihat Detail</a>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </section>
 
@@ -324,4 +324,4 @@
     </footer>
 </body>
 
-</html>
+</html><?php /**PATH /home/reycannavaro/TechSphere/resources/views/homepage.blade.php ENDPATH**/ ?>

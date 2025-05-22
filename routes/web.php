@@ -9,6 +9,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GadgetsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\UserGadgetController;
+use App\Http\Controllers\UserController;
 
 // Homepage //
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
@@ -16,36 +18,44 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 // Halaman Pralogin //
 Route::get('/pralogin', [PraloginController::class, 'pralogin'])->name('pralogin');
 
-// Halaman Login
+// Halaman Login & Register //
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-
-// Halaman Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-// Dashboard (harus login)
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Redirect Default Setelah Login (Fix Laravel Default /dashboard)
+Route::get('/dashboard', function () {
+    if (auth()->user()->role === 'admin') {
+        return redirect()->route('admin.gadgets.dashboard');
+    } else {
+        return redirect()->route('user.homepage');
+    }
+})->middleware('auth')->name('dashboard');
 
-// Halaman User
-Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('user.home')->middleware('auth');
+// Logout //
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Halaman Dashboard Admin
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.gadgets.dashboard')->middleware('auth');
-// Halaman Gadgets
-Route::get('/admin/gadgets', [AdminController::class, 'gadgets'])->name('admin.gadgets')->middleware('auth');
-// Halaman Edit & Delete
-Route::post('/admin/gadgets', [GadgetsController::class, 'store'])->name('gadgets.store');
-Route::get('/admin/gadgets/{id}/edit', [GadgetsController::class, 'edit'])->name('admin.gadgets.edit')->middleware('auth');
-Route::put('/admin/gadgets/{id}', [GadgetsController::class, 'update'])->name('admin.gadgets.update')->middleware('auth');
-Route::delete('/admin/gadgets/{id}', [GadgetsController::class, 'destroy'])->name('admin.gadgets.destroy')->middleware('auth');
-// Halaman Tambah Produk
-Route::prefix('admin')->group(function () {
-    Route::get('/gadgets/create', [GadgetsController::class, 'create'])->name('admin.gadgets.create');
-    Route::post('/gadgets/store', [GadgetsController::class, 'store'])->name('admin.gadgets.store');
+// ================= USER ROUTES ================= //
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/homepage', [DashboardController::class, 'index'])->name('homepage');
+    
+    // 🔗 Route ini digunakan untuk tombol "Profile"
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    
+    Route::get('/gadgets', [UserGadgetController::class, 'index'])->name('gadgets');
+    Route::get('/about', [HomeController::class, 'about'])->name('about');
 });
-// Halaman Categories
-Route::get('/admin/categories', [CategoriesController::class, 'categories'])->name('admin.categories.index')->middleware('auth');
+
+// ================= ADMIN ROUTES ================= //
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('gadgets.dashboard');
+    Route::get('/gadgets', [AdminController::class, 'gadgets'])->name('gadgets');
+    Route::get('/gadgets/create', [GadgetsController::class, 'create'])->name('gadgets.create');
+    Route::post('/gadgets/store', [GadgetsController::class, 'store'])->name('gadgets.store');
+    Route::get('/gadgets/{id}/edit', [GadgetsController::class, 'edit'])->name('gadgets.edit');
+    Route::put('/gadgets/{id}', [GadgetsController::class, 'update'])->name('gadgets.update');
+    Route::delete('/gadgets/{id}', [GadgetsController::class, 'destroy'])->name('gadgets.destroy');
+
+    Route::get('/categories', [CategoriesController::class, 'categories'])->name('categories.index');
+});

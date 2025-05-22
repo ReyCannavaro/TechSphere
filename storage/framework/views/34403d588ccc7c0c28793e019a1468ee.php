@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSphere</title>
+    <title>Document</title>
     <style>
-        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -215,33 +214,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        footer {
-            font-family: 'Calibri';
-            width: 100%;
-            background-color: black;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .footer-section {
-            margin: 10px;
-        }
-
-        .footer-section h3 {
-            font-weight: 300;
-        }
-
-        .footer-section p {
-            font-weight: 100;
-        }
     </style>
 </head>
 
@@ -252,76 +224,49 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-        <li><b><a href="{{ route('homepage') }}">Home</a></b></li>
-        <li><b><a href="{{ route('login') }}">Gadgets</a></b></li>
-        <li><b><a href="{{ route('login') }}">About</a></b></li>
+        <li><b><a href="<?php echo e(route('user.homepage')); ?>">Home</a></b></li>
+        <li><b><a href="<?php echo e(route('user.gadgets')); ?>">Gadgets</a></b></li>
+        <li><b><a href="<?php echo e(route('user.about')); ?>">About</a></b></li>
     </ul>
 
     <!-- Search & Profile -->
     <div class="nav-icons">
-        <form action="{{ route('login') }}" method="GET">
+        <form action="<?php echo e(route('user.profile')); ?>" method="GET">
             <input type="text" name="query" class="search-bar" placeholder="Search something..">
         </form>
 
         <!-- Profile Icon -->
-        <a href="{{ route('login') }}">
-            <img src="{{ asset('pict/Account.png') }}" alt="Profile" style="height: 24px;">
+        <a href="<?php echo e(route('user.profile')); ?>">
+            <img src="<?php echo e(asset('pict/Account.png')); ?>" alt="Profile" style="height: 24px;">
         </a>
     </div>
 </nav>
 
-
-    @foreach($gadgets as $gadget)
+    <?php $__currentLoopData = $gadgets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gadget): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="main-product">
             <div class="product-image">
-                <img src="{{ asset('pict/' . $gadget->image) }}" alt="{{ $gadget->name }}">
+                <img src="<?php echo e(asset('pict/' . $gadget->image)); ?>" alt="<?php echo e($gadget->name); ?>">
             </div>
-            <div class="product-name">{{ $gadget->name }}</div>
-            <a href="{{ route('pralogin') }}" class="detail-link">Lihat Detail</a>
+            <div class="product-name"><?php echo e($gadget->name); ?></div>
+            <a href="#" class="detail-link">Lihat Detail</a>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     <!-- Bagian Rekomendasi Produk -->
     <section class="rekomendasi">
         <h2>Rekomendasi</h2>
         <div class="produk-container">
-            @foreach($recommendedGadgets as $gadget)
+            <?php $__currentLoopData = $recommendedGadgets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gadget): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="produk">
                     <div class="produk-box">
-                        <img src="{{ asset('pict/' . $gadget->image) }}" alt="{{ $gadget->name }}">
+                        <img src="<?php echo e(asset('pict/' . $gadget->image)); ?>" alt="<?php echo e($gadget->name); ?>">
                     </div>
-                    <a href="{{ route('pralogin') }}" class="lihat-detail">Lihat Detail</a>
+                    <a href="#" class="lihat-detail">Lihat Detail</a>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Shop</h3>
-                <p>Handphone</p>
-                <p>Laptop</p>
-                <p>PC</p>
-            </div>
-            <div class="footer-section">
-                <h3>Merk</h3>
-                <p>Apple</p>
-                <p>Samsung</p>
-                <p>Xiaomi</p>
-            </div>
-            <div class="footer-section">
-                <h3>Address</h3>
-                <p>Sidoarjo, kab. Sidoarjo, Jawa Timur, Indonesia</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <a href="">+62 111 1111 111</a>
-                <a href="">+62 000 0000 0000</a>
-            </div>
-        </div>
-    </footer>
 </body>
 
-</html>
+</html><?php /**PATH /home/reycannavaro/TechSphere/resources/views/user/homepage.blade.php ENDPATH**/ ?>

@@ -218,23 +218,29 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">TechSphere</div>
-        <ul class="nav-links">
-            <li><b><a href="#">Mobile</a></b></li>
-            <li><b><a href="#">Laptop</a></b></li>
-            <li><b><a href="#">PC</a></b></li>
-        </ul>
-        <div class="nav-icons">
-            <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="#"><img src="{{ asset('pict/Home.png') }}" alt="Home"></a>
-            <a href="#"><img src="{{ asset('pict/Account.png') }}" alt="User"></a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-    </nav>
+<nav class="navbar">
+    <!-- Logo -->
+    <div class="logo">TechSphere</div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+        <li><b><a href="{{ route('user.homepage') }}">Home</a></b></li>
+        <li><b><a href="{{ route('user.gadgets') }}">Gadgets</a></b></li>
+        <li><b><a href="{{ route('user.about') }}">About</a></b></li>
+    </ul>
+
+    <!-- Search & Profile -->
+    <div class="nav-icons">
+        <form action="{{ route('user.profile') }}" method="GET">
+            <input type="text" name="query" class="search-bar" placeholder="Search something..">
+        </form>
+
+        <!-- Profile Icon -->
+        <a href="{{ route('user.profile') }}">
+            <img src="{{ asset('pict/Account.png') }}" alt="Profile" style="height: 24px;">
+        </a>
+    </div>
+</nav>
 
     @foreach($gadgets as $gadget)
         <div class="main-product">
