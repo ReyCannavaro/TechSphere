@@ -1,56 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Product</title>
-    <link rel="stylesheet" href="">
+    <title>Tambah Produk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-white font-sans">
 
-<body>
-    <div class="container">
-        <h2>Tambah Produk</h2>
-        <form action="{{ url('admin/gadgets/store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="mb-3">
-                <label>Nama Produk</label>
-                <input type="text" name="name" class="form-control" required>
-            </div>
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="bg-gray-100 p-10 rounded-3xl shadow-md w-full max-w-xl">
+            <h2 class="text-2xl font-bold text-center mb-8">Produk Baru</h2>
 
-            <div class="mb-3">
-                <label>Kategori</label>
-                <select name="categories_id" class="form-control" required>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <form action="{{ url('admin/gadgets/store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                @csrf
 
-            <div class="mb-3">
-                <label>Tahun Keluaran</label>
-                <input type="year" name="tahun_keluaran" class="form-control" required>
-            </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Nama Produk</label>
+                    <input type="text" name="name" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required>
+                </div>
 
-            <div class="mb-3">
-                <label>Harga</label>
-                <input type="number" name="harga" class="form-control" required>
-            </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Kategori</label>
+                    <select name="categories_id" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label>Deskripsi</label>
-                <textarea name="description" class="form-control" required></textarea>
-            </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Tahun Keluaran</label>
+                    <input type="number" name="tahun_keluaran" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required>
+                </div>
 
-            <div class="mb-3">
-                <label>Foto Produk</label>
-                <input type="file" name="image" class="form-control">
-            </div>
+                <div>
+                    <label class="block text-gray-700 mb-1">Harga</label>
+                    <input type="number" name="harga" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Tambah</button>
-            <a href="{{ route('admin.gadgets.dashboard') }}" class="btn btn-secondary">Kembali</a>
-        </form>
+                <div>
+                    <label class="block text-gray-700 mb-1">Spesifikasi</label>
+                    <textarea name="description" rows="3" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 mb-1">Photo</label>
+                    <input type="file" name="image" class="w-full bg-white py-2 px-4 border border-gray-300 rounded-md">
+                </div>
+
+                <div class="flex justify-between pt-6">
+                    <a href="{{ route('admin.gadgets.dashboard') }}" class="bg-white border border-black text-black py-2 px-6 rounded-full font-semibold hover:bg-gray-200">Kembali</a>
+                    <button type="submit" class="bg-black text-white py-2 px-6 rounded-full font-semibold hover:bg-gray-800">Tambah</button>
+                </div>
+            </form>
+        </div>
     </div>
-</body>
 
+</body>
 </html>

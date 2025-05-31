@@ -42,5 +42,4 @@
 </div>
 
 </body>
-</html>
-<?php /**PATH /home/reycannavaro/TechSphere/resources/views/user/profile.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/reycannavaro/TechSphere/resources/views/user/profile.blade.php ENDPATH**/ ?>

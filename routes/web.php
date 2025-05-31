@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserGadgetController;
 use App\Http\Controllers\UserController;
 
+
 // Homepage //
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
@@ -24,7 +25,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-// Redirect Default Setelah Login (Fix Laravel Default /dashboard)
+// Redirect Default Setelah Login
 Route::get('/dashboard', function () {
     if (auth()->user()->role === 'admin') {
         return redirect()->route('admin.gadgets.dashboard');
@@ -39,17 +40,17 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 // ================= USER ROUTES ================= //
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/homepage', [DashboardController::class, 'index'])->name('homepage');
-    
-    // 🔗 Route ini digunakan untuk tombol "Profile"
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    
     Route::get('/gadgets', [UserGadgetController::class, 'index'])->name('gadgets');
     Route::get('/about', [HomeController::class, 'about'])->name('about');
 });
 
 // ================= ADMIN ROUTES ================= //
+use App\Http\Controllers\Admin\RatingController as AdminRatingController;
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('gadgets.dashboard');
+
     Route::get('/gadgets', [AdminController::class, 'gadgets'])->name('gadgets');
     Route::get('/gadgets/create', [GadgetsController::class, 'create'])->name('gadgets.create');
     Route::post('/gadgets/store', [GadgetsController::class, 'store'])->name('gadgets.store');
@@ -57,5 +58,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/gadgets/{id}', [GadgetsController::class, 'update'])->name('gadgets.update');
     Route::delete('/gadgets/{id}', [GadgetsController::class, 'destroy'])->name('gadgets.destroy');
 
-    Route::get('/categories', [CategoriesController::class, 'categories'])->name('categories.index');
+    Route::resource('categories', CategoriesController::class);
+
+    // ✅ Route halaman rating menggunakan controller yang benar
+    Route::get('/ratings', [AdminRatingController::class, 'index'])->name('ratings.index');
 });
+// ================= END ADMIN ROUTES ================= //

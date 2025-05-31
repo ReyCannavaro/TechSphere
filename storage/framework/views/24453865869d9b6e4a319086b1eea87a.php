@@ -1,82 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
+<?php $__env->startSection('content'); ?>
+<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 20px;
             align-items: center;
         }
 
-        /* Logo */
         .logo {
             padding-left: 50px;
             font-family: 'Kalnia';
             font-size: 28px;
             font-weight: bold;
-        }
-
-        /* Navigation Links */
-        .nav-links {
-            font-family: 'Calibri';
-            list-style: none;
-            display: flex;
-            right: 100px;
-        }
-
-        .nav-links li {
-            display: inline;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: black;
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: black;
-        }
-
-        /* Icons & Search Bar */
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .search-bar {
-            margin-right: 30px;
-            padding: 10px 40px;
-            border: 1px;
-            border-radius: 20px;
-            outline: none;
-            background-color: #d9d9d9;
-        }
-
-        .nav-icons img {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Navbar */
-        .navbar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: #f5f5f5;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-links {
@@ -88,59 +25,138 @@
         .nav-links li a {
             text-decoration: none;
             color: black;
+            font-size: 20px;
             font-weight: bold;
         }
 
-        .search input {
-            padding: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .icons img {
-            width: 25px;
-            margin-left: 25px;
+        .search-bar {
+            margin-right: 30px;
+            padding: 10px 40px;
+            border: none;
+            border-radius: 20px;
+            background-color: #d9d9d9;
         }
-    </style>
-</head>
 
-<body>
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f5f5f5;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Table Styles */
+    .kategori-container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .btn-tambah {
+        background: linear-gradient(to right, #444, #888);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        color: white;
+        font-weight: bold;
+        margin: 20px 0;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-tambah:hover {
+        background: linear-gradient(to right, #333, #777);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+        text-align: left;
+        padding: 12px;
+    }
+
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .opsi a {
+        margin-right: 10px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: black;
+    }
+
+    .opsi a:hover {
+        color: #555;
+    }
+</style>
+
     <nav class="navbar">
         <div class="logo">TechSphere</div>
         <ul class="nav-links">
-            <li><b><a href="#">Categories</a></b></li>
-            <li><b><a href="<?php echo e(route('admin.gadgets.dashboard')); ?>">Gadgets</a></b></li>
-            <li><b><a href="#">Ratings</a></b></li>
+            <li><a href="<?php echo e(route('admin.categories.index')); ?>">Categories</a></li>
+            <li><a href="<?php echo e(route('admin.gadgets.dashboard')); ?>">Gadgets</a></li>
+            <li><a href="<?php echo e(route('admin.ratings.index')); ?>">Ratings</a></li>
         </ul>
         <div class="nav-icons">
             <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="<?php echo e(route('admin.gadgets.dashboard')); ?>"><img src="<?php echo e(asset('pict/Home.png')); ?>" alt="Home"></a>
-            <a href="#"><img src="<?php echo e(asset('pict/Account.png')); ?>" alt="User"></a>
+            <a href="#"><img src="<?php echo e(asset('pict/Home.png')); ?>" alt="Home" width="24"></a>
+            <a href="#"><img src="<?php echo e(asset('pict/Account.png')); ?>" alt="User" width="24"></a>
             <form action="<?php echo e(route('logout')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
-                <button type="submit" class="btn btn-danger">Logout</button>
+                <button type="submit">Logout</button>
             </form>
         </div>
     </nav>
 
-    
+<div class="kategori-container">
+    <h1>Daftar Kategori</h1>
 
-    <?php $__env->startSection('content'); ?>
-        <h1>Daftar Kategori</h1>
-        <table>
+    <a href="<?php echo e(route('admin.categories.create')); ?>">
+        <button class="btn-tambah">Tambah Kategori</button>
+    </a>
+
+    <table>
+        <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>No</th>
+                <th>Kategori</th>
+                <th>Opsi</th>
             </tr>
-            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                    <td><?php echo e($category->id); ?></td>
-                    <td><?php echo e($category->name); ?></td>
-                </tr>
+        </thead>
+        <tbody>
+            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <tr>
+                <td><?php echo e($index + 1); ?></td>
+                <td><?php echo e($category->name); ?></td>
+                <td class="opsi">
+                    <a href="<?php echo e(route('admin.categories.edit', $category->id)); ?>">Edit</a>
+                    <a href="<?php echo e(route('admin.categories.destroy', $category->id)); ?>"
+                       onclick="return confirm('Apakah kamu yakin ingin menghapus kategori ini?')">Hapus</a>
+                </td>
+            </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </table>
-    <?php $__env->stopSection(); ?>
-</body>
+        </tbody>
+    </table>
+</div>
+<?php $__env->stopSection(); ?>
 
-</html>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/categories/index.blade.php ENDPATH**/ ?>
