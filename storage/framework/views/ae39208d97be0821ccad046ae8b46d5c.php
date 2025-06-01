@@ -1,6 +1,6 @@
-@extends('layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,21 +81,30 @@
 
     <h1>Tambah Kategori</h1>
 
-    <form action="{{ route('admin.categories.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('admin.categories.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
 
         <label for="name">Nama Kategori</label>
-        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+        <input type="text" id="name" name="name" value="<?php echo e(old('name')); ?>" required>
 
-        @error('name')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="error"><?php echo e($message); ?></div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
         <button type="submit" class="btn-submit">Simpan</button>
     </form>
 
-    <a href="{{ route('admin.categories.index') }}" class="btn-back">← Kembali ke daftar kategori</a>
+    <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn-back">← Kembali ke daftar kategori</a>
 
 </body>
 </html>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/categories/create.blade.php ENDPATH**/ ?>

@@ -14,9 +14,11 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
-            $table->string('description');
+            $table->year('tahun_keluaran');
+            $table->decimal('harga', 15, 2); // untuk menyimpan angka besar seperti 36999000.00
+            $table->text('description');
             $table->string('image')->nullable();
-            $table->timestamps();
+            $table->timestamps(); // menambahkan kolom created_at dan updated_at
         });
     }
 

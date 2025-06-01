@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -114,22 +112,16 @@
     <nav class="navbar">
         <div class="logo">TechSphere</div>
         <ul class="nav-links">
-<<<<<<< HEAD
-            <li><b><a href="{{ route('admin.categories.index') }}">Categories</a></b></li>
-            <li><b><a href="{{ route('admin.gadgets.dashboard') }}">Gadgets</a></b></li>
-            <li><b><a href="#">Ratings</a></b></li>
-=======
-            <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
-            <li><a href="{{ route('admin.gadgets.dashboard') }}">Gadgets</a></li>
-            <li><a href="{{ route('admin.ratings.index') }}">Ratings</a></li>
->>>>>>> fitur-profile
+            <li><a href="<?php echo e(route('admin.categories.index')); ?>">Categories</a></li>
+            <li><a href="<?php echo e(route('admin.gadgets.dashboard')); ?>">Gadgets</a></li>
+            <li><a href="<?php echo e(route('admin.ratings.index')); ?>">Ratings</a></li>
         </ul>
         <div class="nav-icons">
             <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="#"><img src="{{ asset('pict/Home.png') }}" alt="Home" width="24"></a>
-            <a href="#"><img src="{{ asset('pict/Account.png') }}" alt="User" width="24"></a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
+            <a href="#"><img src="<?php echo e(asset('pict/Home.png')); ?>" alt="Home" width="24"></a>
+            <a href="#"><img src="<?php echo e(asset('pict/Account.png')); ?>" alt="User" width="24"></a>
+            <form action="<?php echo e(route('logout')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <button type="submit">Logout</button>
             </form>
         </div>
@@ -138,34 +130,7 @@
 <div class="kategori-container">
     <h1>Daftar Kategori</h1>
 
-<<<<<<< HEAD
-    @section('content')
-        <h1>Daftar Kategori</h1>
-        <a href="{{ route('admin.categories.create') }}" class="button-1">Tambah Produk</a>
-        <table class="tabel">
-            <tr class="tabel-head" border-buttom="1px solid #d9d9d9">
-                <th width="100vh">ID</th>
-                <th width="100vh">Kategori</th>
-                <th width="150vh">Opsi</th>
-            </tr>
-            @foreach($categories as $category)
-                <tr class="table-body">
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
-                    <td><!-- Link Edit -->
-                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="link">Edit</a>
-
-                        <!-- Link Delete -->
-                        <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')"
-                                class="button">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-=======
-    <a href="{{ route('admin.categories.create') }}">
+    <a href="<?php echo e(route('admin.categories.create')); ?>">
         <button class="btn-tambah">Tambah Kategori</button>
     </a>
 
@@ -178,19 +143,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($categories as $index => $category)
+            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $category->name }}</td>
+                <td><?php echo e($index + 1); ?></td>
+                <td><?php echo e($category->name); ?></td>
                 <td class="opsi">
-                    <a href="{{ route('admin.categories.edit', $category->id) }}">Edit</a>
-                    <a href="{{ route('admin.categories.destroy', $category->id) }}"
+                    <a href="<?php echo e(route('admin.categories.edit', $category->id)); ?>">Edit</a>
+                    <a href="<?php echo e(route('admin.categories.destroy', $category->id)); ?>"
                        onclick="return confirm('Apakah kamu yakin ingin menghapus kategori ini?')">Hapus</a>
                 </td>
             </tr>
->>>>>>> fitur-profile
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/categories/index.blade.php ENDPATH**/ ?>

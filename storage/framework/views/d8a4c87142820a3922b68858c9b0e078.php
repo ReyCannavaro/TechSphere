@@ -1,11 +1,11 @@
-@extends('layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tambah Kategori</title>
+    <title>Edit Kategori</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,23 +79,33 @@
 </head>
 <body>
 
-    <h1>Tambah Kategori</h1>
+    <h1>Edit Kategori</h1>
 
-    <form action="{{ route('admin.categories.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('admin.categories.update', $category->id)); ?>" method="POST">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
 
         <label for="name">Nama Kategori</label>
-        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+        <input type="text" id="name" name="name" value="<?php echo e(old('name', $category->name)); ?>" required>
 
-        @error('name')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="error"><?php echo e($message); ?></div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
-        <button type="submit" class="btn-submit">Simpan</button>
+        <button type="submit" class="btn-submit">Update</button>
     </form>
 
-    <a href="{{ route('admin.categories.index') }}" class="btn-back">← Kembali ke daftar kategori</a>
+    <a href="<?php echo e(route('admin.categories.index')); ?>" class="btn-back">← Kembali ke daftar kategori</a>
 
 </body>
 </html>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/categories/edit.blade.php ENDPATH**/ ?>

@@ -9,25 +9,29 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">TechSphere</div>
-        <ul class="nav-links">
-            <li><b><a href="{{ route('homepage') }}">Home</a></b></li>
-            <li class="dropdown">
-                <b><a href="#">Category</a></b>
-                <ul class="itulah"> @foreach($categories as $category)
-                    <li><a href="{{ route('homepage', $category->id) }}">{{ $category->name }}</a></li>
-                @endforeach
-                </ul>
-            </li>
-            <li><b><a href="#">About Us</a></b></li>
-        </ul>
-        <div class="nav-icons">
-            <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="{{ route('homepage') }}"><img src="{{ asset('pict/Home.png') }}" alt="Home"></a>
-            <a href="{{ route('pralogin') }}"><img src="{{ asset('pict/Account.png') }}" alt="User"></a>
-        </div>
-    </nav>
+<nav class="navbar">
+    <!-- Logo -->
+    <div class="logo">TechSphere</div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+        <li><b><a href="{{ route('homepage') }}">Home</a></b></li>
+        <li><b><a href="{{ route('login') }}">Gadgets</a></b></li>
+        <li><b><a href="{{ route('login') }}">About</a></b></li>
+    </ul>
+
+    <!-- Search & Profile -->
+    <div class="nav-icons">
+        <form action="{{ route('login') }}" method="GET">
+            <input type="text" name="query" class="search-bar" placeholder="Search something..">
+        </form>
+
+        <!-- Profile Icon -->
+        <a href="{{ route('login') }}">
+            <img src="{{ asset('pict/Account.png') }}" alt="Profile" style="height: 24px;">
+        </a>
+    </div>
+</nav>
 
     <div class="slideshow-container">
         <div class="slide-wrapper slide1 active">

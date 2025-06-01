@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\gadgets;
-use App\Models\categories;
+use App\Models\Gadgets;
 
 class DashboardController extends Controller
 {
@@ -23,6 +22,6 @@ class DashboardController extends Controller
         $gadgets = Gadgets::take(4)->get();
         $recommendedGadgets = Gadgets::skip(4)->take(PHP_INT_MAX)->get();
 
-        return view('user.home', compact('gadgets', 'recommendedGadgets', 'categories'));
+        return view('user.homepage', compact('gadgets', 'recommendedGadgets'));
     }
 }

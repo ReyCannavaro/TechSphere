@@ -1,0 +1,1 @@
+<?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/ratings/index.blade.php ENDPATH**/ ?>

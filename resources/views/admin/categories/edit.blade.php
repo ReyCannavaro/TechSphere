@@ -1,43 +1,102 @@
+@extends('layouts.app')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Produk</title>
-    <link rel="stylesheet" href="{{ asset(path: "css/tambahproduk.css") }}">
+    <title>Edit Kategori</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 32px;
+        }
+
+        form {
+            width: 500px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .btn-submit {
+            background: linear-gradient(to right, #444, #888);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(to right, #333, #777);
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            color: black;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            color: #555;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="logo">TechSphere</div>
-        <ul class="nav-links">
-            <li><b><a href="{{ route('admin.categories.index') }}">Categories</a></b></li>
-            <li><b><a href="{{ route('admin.gadgets.dashboard') }}">Gadgets</a></b></li>
-            <li><b><a href="#">Ratings</a></b></li>
-        </ul>
-        <div class="nav-icons">
-            <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="#"><img src="{{ asset('pict/Home.png') }}" alt="Home"></a>
-            <a href="#"><img src="{{ asset('pict/Account.png') }}" alt="User"></a>
 
-        </div>
-    </nav>
+    <h1>Edit Kategori</h1>
 
-    <div class="container">
-        <h2>Edit Produk</h2>
-        <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <input type="text" name="name" value="{{ $category->name }}" class="form-control" required>
-            </div>
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Kembali</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
-    </div>
+        <label for="name">Nama Kategori</label>
+        <input type="text" id="name" name="name" value="{{ old('name', $category->name) }}" required>
+
+        @error('name')
+            <div class="error">{{ $message }}</div>
+        @enderror
+
+        <button type="submit" class="btn-submit">Update</button>
+    </form>
+
+    <a href="{{ route('admin.categories.index') }}" class="btn-back">← Kembali ke daftar kategori</a>
 
 </body>
-
 </html>
+@endsection

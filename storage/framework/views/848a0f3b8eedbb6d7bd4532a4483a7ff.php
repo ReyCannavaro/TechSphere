@@ -12,8 +12,8 @@
         <div class="bg-gray-100 p-10 rounded-3xl shadow-md w-full max-w-xl">
             <h2 class="text-2xl font-bold text-center mb-8">Produk Baru</h2>
 
-            <form action="{{ url('admin/gadgets/store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                @csrf
+            <form action="<?php echo e(url('admin/gadgets/store')); ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <?php echo csrf_field(); ?>
 
                 <div>
                     <label class="block text-gray-700 mb-1">Nama Produk</label>
@@ -23,9 +23,9 @@
                 <div>
                     <label class="block text-gray-700 mb-1">Kategori</label>
                     <select name="categories_id" class="w-full border-b border-gray-300 focus:outline-none focus:border-black bg-transparent py-2" required>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($category->id); ?>"><?php echo e($category->nama_kategori); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
 
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="flex justify-between pt-6">
-                    <a href="{{ route('admin.gadgets.dashboard') }}" class="bg-white border border-black text-black py-2 px-6 rounded-full font-semibold hover:bg-gray-200">Kembali</a>
+                    <a href="<?php echo e(route('admin.gadgets.dashboard')); ?>" class="bg-white border border-black text-black py-2 px-6 rounded-full font-semibold hover:bg-gray-200">Kembali</a>
                     <button type="submit" class="bg-black text-white py-2 px-6 rounded-full font-semibold hover:bg-gray-800">Tambah</button>
                 </div>
             </form>
@@ -59,3 +59,4 @@
 
 </body>
 </html>
+<?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/gadgets/create.blade.php ENDPATH**/ ?>

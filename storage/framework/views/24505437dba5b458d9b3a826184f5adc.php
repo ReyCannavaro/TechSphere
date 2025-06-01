@@ -123,23 +123,23 @@
     <nav class="navbar">
         <div class="logo">TechSphere</div>
         <ul class="nav-links">
-            <li><a href="{{ route('admin.categories.index') }}">Categories</a></li>
-            <li><a href="{{ route('admin.gadgets.dashboard') }}">Gadgets</a></li>
-            <li><a href="{{ route('admin.ratings.index') }}">Ratings</a></li>
+            <li><a href="<?php echo e(route('admin.categories.index')); ?>">Categories</a></li>
+            <li><a href="<?php echo e(route('admin.gadgets.dashboard')); ?>">Gadgets</a></li>
+            <li><a href="<?php echo e(route('admin.ratings.index')); ?>">Ratings</a></li>
         </ul>
         <div class="nav-icons">
             <input type="text" class="search-bar" placeholder="Search something..">
-            <a href="#"><img src="{{ asset('pict/Home.png') }}" alt="Home" width="24"></a>
-            <a href="#"><img src="{{ asset('pict/Account.png') }}" alt="User" width="24"></a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
+            <a href="#"><img src="<?php echo e(asset('pict/Home.png')); ?>" alt="Home" width="24"></a>
+            <a href="#"><img src="<?php echo e(asset('pict/Account.png')); ?>" alt="User" width="24"></a>
+            <form action="<?php echo e(route('logout')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <button type="submit">Logout</button>
             </form>
         </div>
     </nav>
 
     <h1>Daftar Produk</h1>
-    <a href="{{ route('admin.gadgets.create') }}" class="btn-add">Tambah Produk</a>
+    <a href="<?php echo e(route('admin.gadgets.create')); ?>" class="btn-add">Tambah Produk</a>
 
     <table>
         <tr>
@@ -151,25 +151,26 @@
             <th>Photo</th>
             <th>Opsi</th>
         </tr>
-        @foreach($gadgets as $index => $gadget)
+        <?php $__currentLoopData = $gadgets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $gadget): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $gadget->name }}</td>
-                <td>{{ $gadget->tahun_keluaran }}</td>
-                <td><strong>Rp{{ number_format($gadget->harga, 0, ',', '.') }}</strong></td>
-                <td>{{ $gadget->description }}</td>
-                <td><img src="{{ asset('pict/' . $gadget->image) }}"></td>
+                <td><?php echo e($index + 1); ?></td>
+                <td><?php echo e($gadget->name); ?></td>
+                <td><?php echo e($gadget->tahun_keluaran); ?></td>
+                <td><strong>Rp<?php echo e(number_format($gadget->harga, 0, ',', '.')); ?></strong></td>
+                <td><?php echo e($gadget->description); ?></td>
+                <td><img src="<?php echo e(asset('pict/' . $gadget->image)); ?>"></td>
                 <td class="options">
-                    <a href="{{ route('admin.gadgets.edit', $gadget->id) }}">Edit</a>
-                    <form action="{{ route('admin.gadgets.destroy', $gadget->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
+                    <a href="<?php echo e(route('admin.gadgets.edit', $gadget->id)); ?>">Edit</a>
+                    <form action="<?php echo e(route('admin.gadgets.destroy', $gadget->id)); ?>" method="POST" style="display:inline;">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('DELETE'); ?>
                         <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" style="background: none; border: none; color: black; font-weight: bold; cursor: pointer;">Hapus</button>
                     </form>
                 </td>
             </tr>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </table>
 </body>
 
 </html>
+<?php /**PATH /home/reycannavaro/TechSphere/resources/views/admin/gadgets/dashboard.blade.php ENDPATH**/ ?>

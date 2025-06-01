@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Gadgets;
-use App\Models\Categories;
+use App\Models\gadgets;
+use App\Models\categories;
 
 class GadgetsController extends Controller
 {
